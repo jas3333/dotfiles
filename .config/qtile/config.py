@@ -46,12 +46,15 @@ keys = [
     Key([mod], "b", lazy.spawn("librewolf")),
     Key([mod], "r", lazy.spawn('rofi -combi-modi window,drun,ssh -theme DarkBlue -font "Operator Mono Lig 24" -show combi -icon-theme "candy-icons" -show-icons')),
     Key([mod], "f", lazy.spawn("pcmanfm")),
+    Key([mod], "o", lazy.spawn("octopi")),
 
 
     # Change Wallpaper
-    Key([mod], "w", lazy.spawn("wal --saturate 0.8 -q -i /home/jas/.wallpapers")),
+    Key([mod], "w", lazy.spawn("wal --saturate 0.8 -q -i /home/jas/.wallpapers/wallpaper")),
     # Picom toggle on/off
     Key([mod], "p", lazy.spawn("/home/jas/.config/qtile/./picom-toggle.sh")),
+    # Toggle sound sources
+    Key([mod], "s", lazy.spawn("python3 /home/jas/.config/qtile/sound-change.py")),
 
     #Media Keys
     Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -D pulse sset Master 5%+")),
@@ -180,13 +183,14 @@ screens = [
                     mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e htop')},),
                 widget.Sep(background = color[1], foreground = color[0], linewidth = 4, padding = 20),
                 widget.TextBox(text = "CPU Temp: ", background = color[1]),
-                widget.ThermalSensor(background=color[1],  tag_sensor = 'Core 0'),
+                widget.ThermalSensor(background=color[1],  tag_sensor = 'Tctl'),
                 widget.Sep(background = color[1], foreground = color[0], linewidth = 4, padding = 20),
-              #  widget.OpenWeather(
-              #      metric = False,
-              #      cityid = #######, 
-              #      background = color[1],
-              #      format = ' {weather}{temp:3.0f}{units_temperature}',
+               # widget.OpenWeather(
+               #     metric = False,
+               #     cityid = ########, 
+               #     background = color[1],
+               #     format = ' {weather}{temp:3.0f}{units_temperature}',
+               # mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("brave https://www.accuweather.com/enteryourowncity")},),
                 widget.Sep(background = color[1], foreground = color[0], linewidth = 4, padding = 20),
                 widget.Systray(icon_size = 40,background = color[1], padding = 10 ),
                 widget.Sep(background = color[1], foreground = color[0], linewidth = 4, padding = 20),
