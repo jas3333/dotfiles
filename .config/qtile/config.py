@@ -7,13 +7,17 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 import random
+
+
 mod = "mod4"
 terminal = guess_terminal()
 myTerm = "kitty"
 myBrowser = 'brave'
+home = os.path.expanduser("~")
+
+
 @hook.subscribe.startup_once
 def autostart():
-    home = os.path.expanduser("~")
     subprocess.Popen([home + '/.config/qtile/autostart.sh'])
 
 keys = [
@@ -50,15 +54,15 @@ keys = [
 
 
     # Change Wallpaper
-    Key([mod], "w", lazy.spawn("wal --saturate 0.8 -q -i /home/jas/.wallpapers/wallpaper")),
+    Key([mod], "w", lazy.spawn("wal --saturate 0.8 -q -i " + home + "/.wallpapers/wallpaper")),
     # Picom toggle on/off
-    Key([mod], "p", lazy.spawn("/home/jas/.config/qtile/./picom-toggle.sh")),
+    Key([mod], "p", lazy.spawn("picom-toggle")),
     # Toggle sound sources
-    Key([mod], "s", lazy.spawn("python3 /home/jas/.config/qtile/sound-change.py")),
+    Key([mod], "s", lazy.spawn("sound-change")),
 
     #Media Keys
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -D pulse sset Master 5%+")),
-    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -D pulse sset Master 5%-")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("sound-up")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("sound-down")),
 
     # Toggle Layouts
     Key([mod], "Tab", lazy.next_layout()),
