@@ -1,0 +1,10 @@
+#!/bin/sh
+xset r rate 300 50
+xrandr --output DP-2 --off --output DP-4 --off
+#xrandr --output HDMI-0 --off 
+picom --experimental-backend &
+bluetoothctl -- power on &
+dunst &
+nm-applet &
+flameshot &
+wal -R
