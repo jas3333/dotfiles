@@ -56,7 +56,7 @@ keys = [
     Key([mod], "x", lazy.spawn("kitty")),
     Key([mod], "b", lazy.spawn("brave")),
     Key([mod], "r", lazy.spawn('rofi -combi-modi window,drun,ssh -theme DarkBlue -font "Operator Mono Lig 16" -show combi -icon-theme "candy-icons" -show-icons')),
-    Key([mod], "w", lazy.spawn("wal --saturate 1.0 -q -i /home/jas/.wallpapers/wallpaper/")),
+    Key([mod], "w", lazy.spawn("wal --saturate 1.0 -qst -i /home/jas/.wallpapers/wallpaper/")),
     Key([mod], "f", lazy.spawn("pcmanfm")),
     Key([mod], "c", lazy.spawn("calc")),
     Key([mod], "t", lazy.spawn("krita")),
@@ -88,9 +88,9 @@ keys = [
     # Logout of Qtile
     Key([mod, "control"], "q", lazy.shutdown()),
 ]
-
+#           top       bottom 
 color = [["#151e26","#202f3c"],  # Bar Middle                 0
-         ["#0b1116","#1e2934"],  # Bar Outer                  1
+         ["#0b1116","#1e2934"],  # Bar Outer   2b445a         1
          ["#4c5570","#2b2b2b"],  # Inactive Group Color       2
          ["#f9f7f8","#f9f7f8"],  # Active Group Color         3
          ["#d75f5f","#d75f5f"],  # Group Border Color         4
@@ -99,8 +99,8 @@ color = [["#151e26","#202f3c"],  # Bar Middle                 0
          ["#21051b","#21051b"],  #                            7
          ["#1e2934","#0b1116"],] #                            8
 
-group_names = [("I", {'layout': 'columns'}),("II", {'layout': 'columns'}),("III", {'layout': 'columns'}),("IV", {'layout': 'columns'}),("V", {'layout': 'columns'}),("VI", {'layout': 'columns'}),("VII", {'layout': 'columns'}),("VIII", {'layout': 'columns'}),("IX", {'layout': 'columns'})]  
-
+#group_names = [("I", {'layout': 'columns'}),("II", {'layout': 'columns'}),("III", {'layout': 'columns'}),("IV", {'layout': 'columns'}),("V", {'layout': 'columns'}),("VI", {'layout': 'columns'}),("VII", {'layout': 'columns'}),("VIII", {'layout': 'columns'}),("IX", {'layout': 'columns'})]  
+group_names = [("", {'layout': 'columns'}),("", {'layout': 'columns'}),("", {'layout': 'columns'}),("", {'layout': 'columns'}),("", {'layout': 'columns'}),("", {'layout': 'columns'}),("", {'layout': 'columns'}),("", {'layout': 'columns'}),("", {'layout': 'columns'})]  
 groups = [Group(name, **kwargs) for name, kwargs in group_names]
 
 for i, (name, kwargs) in enumerate(group_names, 1):
@@ -184,12 +184,12 @@ screens = [
                 widget.TextBox(text = "CPU Temp: ", background = color[1]),
                 widget.ThermalSensor(background = color[1], tag_sensor = 'Tctl'),
                 widget.Sep(background = color[1], foreground = color[0], linewidth = 2, padding = 20),
-               # widget.OpenWeather(
-               #     metric = False,
-               #     cityid = ,
-               #     background = color[1],
-               #     format = ' {weather} {temp:3.0f}{units_temperature}',
-               #     mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("brave https://www.accuweather.com/")},),
+                # widget.OpenWeather(
+                #     metric = False,
+                #     cityid = your city ID,
+                #     background = color[1],
+                #     format = '{icon} {weather} {temp:3.0f}{units_temperature}',
+                #     mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("brave https://weather website you want to use")},),
                 widget.Sep(background = color[1], foreground = color[0], linewidth = 2, padding = 20),
                 widget.Systray(icon_size = 20, padding = 7, background = color[1] ),
                 widget.Sep(background = color[1], foreground = color[0], linewidth = 2, padding = 20),
@@ -197,7 +197,7 @@ screens = [
                 widget.Sep(background = color[1], foreground = color[0], linewidth = 0, padding = 20),
 
             ],
-            30, opacity = 1.0, margin=[0,16,0,16]
+            30, opacity = .7, margin=[0,16,0,16]
         ),
     ),
 # 2nd Monitor
@@ -249,7 +249,7 @@ screens = [
                 widget.Clock(format='%b %d %a %H:%M',background = color[1],),
                 widget.Sep(background = color[1], foreground = color[0], linewidth = 0, padding = 20),
             ],
-            30, opacity = 1.0, margin=[0,16,0,16]
+            30, opacity = .7, margin=[0,16,0,16]
         ),
 
     ),
