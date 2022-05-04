@@ -8,9 +8,18 @@ from libqtile.utils import guess_terminal
 from libqtile import qtile
 
 
+CITY_ID = os.environ.get('CITYID')
+CITY_LINK = os.environ.get('CITY_LINK')
+
 mod = "mod4"
 terminal = guess_terminal()
 myTerm = "kitty"
+
+
+@hook.subscribe.startup_once
+def autostart():
+    home = os.path.expanduser("~")
+    subprocess.Popen([home + '/.config/qtile/autostart.sh'])
 
 
 # with open("/home/jas/.cache/wal/colors", "r") as file:
@@ -24,23 +33,17 @@ myTerm = "kitty"
 color = [
     # Top color       Bottom
         ["#d9d1a5", "#d9d1a5"],  # Fonts
-        ["#252a31", "#414954"],  # Background for Bar Ends
-        ["#343b40", "#4a5256"],  # Changes Center Bar
+        ["#2a2725", "#303030"],  # Background for Bar Ends
+        ["#403b36", "#565554"],  # Changes Center Bar
         ["#ababab", "#4e473f"],  # Changes Other screen markers
-        ["#777777", "#c6c6c6"],  # Changes something
-        ["#ababab", "#313131"],  # Changes something
-        ["#ababab", "#313131"],  # Changes something
-        ["#ababab", "#313131"],  # Changes something
-        ["#ababab", "#313131"],  # Changes something
-        ["#ababab", "#313131"],  # Changes something
+        ["#777777", "#c6c6c6"],  #
+        ["#ababab", "#313131"],  #
+        ["#ababab", "#313131"],  #
+        ["#ababab", "#313131"],  #
+        ["#ababab", "#313131"],  #
+        ["#ababab", "#313131"],  #
 
 ]
-
-
-@hook.subscribe.startup_once
-def autostart():
-    home = os.path.expanduser("~")
-    subprocess.Popen([home + '/.config/qtile/autostart.sh'])
 
 
 keys = [
@@ -234,6 +237,7 @@ screens = [
                     foreground=color[1],
                     padding=10),
 
+
                 widget.Spacer(background=color[2], length=5),
 
                 widget.TaskList(
@@ -256,6 +260,7 @@ screens = [
 
                 widget.CheckUpdates(
                     background=color[1],
+                    colour_have_updates=color[0],
                     distro="Arch_checkupdates",
                     display_format="Updates: {updates}",
                     mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e sudo pacman -Syu')},),
@@ -282,6 +287,7 @@ screens = [
 
                 widget.CPU(
                     background=color[1],
+                    foreground=color[0],
                     format='CPU: {load_percent}%'),
                 widget.Sep(
                     background=color[1],
@@ -295,6 +301,7 @@ screens = [
 
                 widget.ThermalSensor(
                     background=color[1],
+                    foreground=color[0],
                     tag_sensor='Tctl'),
 
                 widget.Sep(
@@ -303,12 +310,12 @@ screens = [
                     linewidth=1,
                     padding=20),
 
-                # widget.OpenWeather(
-                #     metric=False,
-                #     cityid=,
-                #     background=color[1],
-                #     format='{icon} {weather} {temp:3.0f}{units_temperature}',
-                #     mouse_callbacks={'Button1': lambda: qtile.cmd_spawn("brave https://www.accuweather.com/en/us/yourcity/cityzip/daily-weather-forecast/city_id")},),
+                widget.OpenWeather(
+                    metric=False,
+                    cityid=CITY_ID,
+                    background=color[1],
+                    format='{icon} {weather} {temp:3.0f}{units_temperature}',
+                    mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(CITY_LINK)},),
 
                 widget.Sep(
                     background=color[1],
@@ -383,8 +390,8 @@ screens = [
 
                 widget.Sep(
                     linewidth=1,
-                    background=color[2],
-                    foreground=color[2],
+                    background=color[1],
+                    foreground=color[1],
                     padding=10),
 
                 widget.Spacer(
@@ -439,7 +446,7 @@ screens = [
 
                 widget.ThermalSensor(
                     background=color[1],
-                    foregroune=color[2],
+                    foreground=color[0],
                     tag_sensor='Tctl'),
 
                 widget.Sep(
