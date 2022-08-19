@@ -1,0 +1,58 @@
+#! /usr/bin/env python
+import wx
+
+class Main:
+
+    def __init__(self):
+
+        self.app = wx.App()
+        self.frame = wx.Frame(None, title="Helper", size=(800, 485), style=wx.DEFAULT_FRAME_STYLE & ~(wx.RESIZE_BORDER))
+        self.panel = wx.Panel(self.frame)
+
+        # Static Boxes
+        self.window_managment_box = wx.StaticBox(self.panel, size=(200, 470), label="Window Management", pos=(18, 5))
+        self.system_managment_box = wx.StaticBox(self.panel, size=(200, 470), label="System Managment", pos=(225, 5))
+        self.application_launchers_box = wx.StaticBox(self.panel, size=(350, 470), label="Applications", pos=(433, 5))
+
+        # Window Managment Labels
+        self.move_left = wx.StaticText(self.window_managment_box, label="Move Left:  + shift + H", pos=(5, 5))
+        self.move_right= wx.StaticText(self.window_managment_box, label="Move Right:  + shift + L", pos=(5, 35))
+        self.move_up= wx.StaticText(self.window_managment_box, label="Move Up:  + shift + K", pos=(5, 65))
+        self.move_down= wx.StaticText(self.window_managment_box, label="Move Down:  + shift + J", pos=(5, 95))
+
+        self.grow_left = wx.StaticText(self.window_managment_box, label="Grow Left:  + ctrl + H", pos=(5, 135))
+        self.grow_right= wx.StaticText(self.window_managment_box, label="Grow Right:  + ctrl + L", pos=(5, 165))
+        self.grow_up= wx.StaticText(self.window_managment_box, label="Grow Up:  + ctrl + K", pos=(5, 195))
+        self.grow_down= wx.StaticText(self.window_managment_box, label="Grow Down:  + ctrl + J", pos=(5, 225))
+
+        self.focus_left = wx.StaticText(self.window_managment_box, label="Focus Left:  + H", pos=(5, 265))
+        self.focus_right = wx.StaticText(self.window_managment_box, label="Focus Right:  + L", pos=(5, 295))
+        self.focus_up= wx.StaticText(self.window_managment_box, label="Focus Up:  + K", pos=(5, 325))
+        self.focus_down= wx.StaticText(self.window_managment_box, label="Focus Down:  + J", pos=(5, 355))
+
+        self.close_window = wx.StaticText(self.window_managment_box, label="Close Window:  + Q", pos=(5, 395))
+        self.close_this_window = wx.StaticText(self.window_managment_box, label="Close This Window:  + H", pos=(5, 425))
+
+        # System Managment Labels
+        self.restart_qtile = wx.StaticText(self.system_managment_box, label="Restart Qtile:  + ctrl + R", pos=(5, 5))
+        self.close_qtile = wx.StaticText(self.system_managment_box, label="Close Qtile:  + ctrl + Q", pos=(5, 35))
+        self.change_wallpaper = wx.StaticText(self.system_managment_box, label="Change Wallpaper:  + W", pos=(5, 65))
+        self.disable_picom = wx.StaticText(self.system_managment_box, label="Disable Compositor:  + P", pos=(5, 95))
+
+        # Application Labels
+        self.browser = wx.StaticText(self.application_launchers_box, label="Application Launcher(Rofi)  + R", pos=(5, 5))
+        self.browser = wx.StaticText(self.application_launchers_box, label="Launch Browser:  + B", pos=(5, 35))
+        self.terminal = wx.StaticText(self.application_launchers_box, label="Launch Terminal:  + X", pos=(5, 65))
+        self.krita = wx.StaticText(self.application_launchers_box, label="Launch Krita:  + K", pos=(5, 95))
+        self.filezilla = wx.StaticText(self.application_launchers_box, label="Launch FileZilla:  + Z", pos=(5, 125))
+        self.filemanager= wx.StaticText(self.application_launchers_box, label="Launch Filemanager:  + F", pos=(5, 155))
+        self.vscode= wx.StaticText(self.application_launchers_box, label="Launch VS Code:  + C", pos=(5, 185))
+
+    def run(self):
+        self.frame.Show()
+        self.app.MainLoop()
+
+
+if __name__ == "__main__":
+    app = Main()
+    app.run()
