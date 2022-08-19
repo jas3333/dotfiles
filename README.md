@@ -1,4 +1,4 @@
 Screen one
 
-![](./screenshots/screen_one.png)
+![](./screenshots/desktop.png)
 
