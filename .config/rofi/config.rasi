@@ -7,7 +7,7 @@ configuration {
 @theme "/dev/null"
 
 * {
-    background-color: #242424;
+    background-color: #373737;
     color: #e5dfc3;
 
     font-color: #373737;
@@ -42,7 +42,7 @@ box {
 }
 
 entry {
-    background-color: #373737;
+    background-color: #262626;
     border-radius: 5px;
     padding: 5 0 5 0;
     margin: 10 0 10 15;
@@ -54,7 +54,7 @@ listview {
 }
 
 element-text.selected {
-    background-color: @font-color;
+    background-color: #686868;
     border: 1px;
     border-radius: 15px;
 }
