@@ -204,7 +204,7 @@ screens = [
                     other_screen_border=color[1],
                     this_screen_border=color[3]),
 
-                widget.TextBox(font="sans", text="◤", fontsize=70, background=color[2], foreground=bar_color, padding=-1),
+                widget.TextBox(font="serif", text="◤", fontsize=70, background=color[2], foreground=bar_color, padding=-1),
                 widget.CurrentLayout(background=color[2], foreground=color[0]),
                 widget.TextBox(font="sans", text="◢", fontsize=70, background=color[2], foreground=bar_color, padding=-1),
 
