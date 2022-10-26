@@ -2,10 +2,11 @@ import os
 import subprocess
 from typing import List
 from libqtile import bar, layout, widget, hook
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile.config import Click, Drag, Group, Key, Match, Screen, DropDown, ScratchPad
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile import qtile
+import colors
 
 
 CITY_ID = os.environ.get('CITYID')
@@ -30,43 +31,8 @@ def autostart():
 #    if index < len(color_list) - 1:
 #        color.append([col, color_list[index + 1]])
 
-# color = [
-#    # Top color       Bottom
-#        ["#d9d1a5", "#d9d1a5"],  # Fonts
-#        ["#2a2725", "#303030"],  # Background for Bar Ends
-#        ["#403b36", "#565554"],  # Changes Center Bar
-#        ["#ababab", "#4e473f"],  # Changes Other screen markers
-#        ["#777777", "#c6c6c6"],  #
-#        ["#ababab", "#313131"],  #
-#        ["#ababab", "#313131"],  #
-#        ["#ababab", "#313131"],  #
-#        ["#ababab", "#313131"],  #
-#        ["#ababab", "#313131"],  #
-# ]
-#
-# color = [
-#    ["#5e5e5e", "#ffffff"],     # Fonts
-#    ["#212121", "#3e3e3e"],     # Background for bar ends
-#    ["#212121", "#6b6b6b"],     # Center bar
-#    ["#ababab", "#222222"],     # Changes Other screen markers
-#    ["#ffffff", "#ffffff"],
-#    ["#ababab", "#313131"],
-#    ["#ababab", "#313131"],
-#    ["#ababab", "#313131"],
-#
-# ]
+color, bar_color = colors.new_color()
 
-color = [
-    ["#9C9C9C", "#ffffff"],     # Fonts
-    ["#494949", "#494949"],     # Background for bar ends
-    ["#575757", "#575757"],     # Center bar
-    ["#6C6C6C", "#6C6C6C"],     # Changes Other screen markers
-    ["#ffffff", "#ffffff"],
-    ["#ababab", "#313131"],
-    ["#ababab", "#313131"],
-    ["#ababab", "#313131"],
-
-]
 keys = [
     # Switch between windows
     Key([mod], "h", lazy.layout.left()),
@@ -169,8 +135,17 @@ group_names = [
 groups = [Group(name, **kwargs) for name, kwargs in group_names]
 
 for i, (name, kwargs) in enumerate(group_names, 1):
-    keys.append(Key([mod], str(i), lazy.group[name].toscreen()))
+    keys.append(Key([mod], str(i), lazy.group[name].toscreen(toggle=True)))
     keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name)))
+
+groups.append(ScratchPad('scratchpad', [
+    DropDown('myTerm', myTerm, width=0.6, height=0.6, x=0.2, y=0.2, opacity=0.8)
+]))
+
+keys.extend([
+    Key([mod], "t", lazy.group['scratchpad'].dropdown_toggle('myTerm')),
+])
+
 
 layouts = [
 
@@ -205,8 +180,8 @@ widget_defaults = dict(
     font='Operator Mono Lig Book Italic',
     fontsize=16,
     padding=0,
-    background=color[1],
-    foreground=color[0],
+    background=bar_color,
+    foreground=color[2],
 
 )
 
@@ -216,34 +191,31 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.Sep(linewidth=1, background=color[1], foreground=color[1], padding=10),
+                widget.Sep(linewidth=1, foreground=bar_color, padding=10),
                 widget.GroupBox(
                     highlight_method='line',
                     center_aligned=True,
                     borderwidth=2,
-                    background=color[1],
-                    highlight_color=color[1],
-                    inactive=color[0],
+                    highlight_color=bar_color,
+                    inactive=color[1],
                     padding=8,
-                    this_current_screen_border=color[0],
-                    other_screen_border=color[3],
+                    this_current_screen_border=color[2],
+                    other_screen_border=color[1],
                     this_screen_border=color[3]),
 
-                widget.Sep(linewidth=1, background=color[1], foreground=color[4], padding=20),
-                widget.CurrentLayout(),
-                widget.Sep(linewidth=1, background=color[1], foreground=color[4], padding=20),
-                widget.Sep(linewidth=1, background=color[1], foreground=color[1], padding=10),
+                widget.TextBox(font="sans", text="◤", fontsize=70, background=color[2], foreground=bar_color, padding=-1),
+                widget.CurrentLayout(background=color[2], foreground=color[0]),
+                widget.TextBox(font="sans", text="◢", fontsize=70, background=color[2], foreground=bar_color, padding=-1),
 
                 widget.TaskList(
-                    icon_size=15,
                     highlight_method='block',
-                    margin=0,
+                    background=bar_color,
+                    margin=1,
                     padding_y=5,
                     padding_x=5,
-                    border=color[2],
-                    background=color[1],
-                    unfocused_border=color[2],
-                ),
+                    border=bar_color,
+                    unfocused_border=bar_color,
+                    icon_size=15),
 
                 widget.Mpris2(
                     max_chars=50,
@@ -253,7 +225,7 @@ screens = [
                     display_metadata=['xesam:artist', 'xesam:title'],
                 ),
 
-                widget.Spacer(length=550),
+                widget.Spacer(length=500),
 
                 # widget.CheckUpdates(
                 #     colour_have_updates=color[0],
@@ -262,99 +234,94 @@ screens = [
                 #     display_format="Updates: {updates}",
                 #     mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e sudo pacman -Syu')},),
 
-                # widget.Sep(background=color[1], foreground=color[4], linewidth=1, padding=20),
-                # widget.TextBox(font="FiraCode", text="🎜 ", fontsize=16, background=color[1], padding_y=1),
+                widget.TextBox(font="sans", text="◢", fontsize=70, background=bar_color, foreground=color[10], padding=-1),
+                widget.TextBox(font="sans", text="  ", fontsize=18, background=color[10]),
+                widget.Memory(background=color[10], foreground=color[3]),
+                widget.Sep(background=color[10], foreground=color[3], linewidth=1, padding=20),
+                widget.CPU(background=color[10], foreground=color[8], format='CPU: {load_percent}%'),
+                widget.Sep(background=color[10], foreground=color[3], linewidth=1, padding=20),
+                widget.TextBox(text="CPU Temp: ", background=color[10], foreground=color[9]),
+                widget.ThermalSensor(background=color[10], foreground=color[9], tag_sensor='Tctl'),
 
-                widget.Sep(background=color[1], foreground=color[4], linewidth=1, padding=20),
-                widget.TextBox(font="sans", text=" ", fontsize=18, background=color[1]),
-
-                widget.Memory(background=color[1]),
-                widget.Sep(background=color[1], foreground=color[4], linewidth=1, padding=20),
-                widget.CPU(background=color[1], format='CPU: {load_percent}%'),
-                widget.Sep(background=color[1], foreground=color[4], linewidth=1, padding=20),
-                widget.TextBox(text="CPU Temp: ", background=color[1]),
-                widget.ThermalSensor(foreground=color[0], background=color[1], tag_sensor='Tctl'),
-                widget.Sep(background=color[1], foreground=color[4], linewidth=1, padding=20),
-
+                widget.Sep(background=color[10], foreground=color[3], linewidth=1, padding=20),
                 widget.OpenWeather(
                     metric=False,
                     cityid=CITY_ID,
-                    background=color[1],
+                    background=color[10],
                     format='{icon} {weather} {temp:3.0f}{units_temperature}',
                     mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(CITY_LINK)},),
 
-                widget.Sep(background=color[1], foreground=color[4], linewidth=1, padding=20),
+                widget.Sep(background=color[10], foreground=color[3], linewidth=1, padding=20),
 
                 widget.WidgetBox(widgets=[
+                    widget.Sep(background=color[10], foreground=color[3], linewidth=1, padding=20),
+                    widget.Systray(icon_size=20, padding=7, background=color[10])],
+                    background=color[10],
+                ),
 
-                    widget.Sep(background=color[1], foreground=color[4], linewidth=1, padding=20),
-                    widget.Systray(icon_size=20, padding=7, background=color[1]),
-                    # widget.Sep(background=color[1], foreground=color[4], linewidth=1, padding=20),
-                ]),
-                widget.Sep(background=color[1], foreground=color[4], linewidth=1, padding=20),
-                widget.Clock(format='%b %d %a %H:%M', background=color[1]),
-                widget.Sep(background=color[1], foreground=color[4], linewidth=0, padding=20),
+                widget.Sep(background=color[10], foreground=color[3], linewidth=1, padding=20),
+                widget.Clock(format='%b %d %a %H:%M', background=color[10], foreground=color[4]),
+                widget.Sep(background=color[10], foreground=color[3], linewidth=0, padding=20),
 
             ],
             35,
             opacity=.7,
             margin=[5, 16, 0, 16],
-            border_width=[2, 2, 2, 2],
-            border_color="#A7A7A7",
+            #border_width=[2, 2, 2, 2],
+            # border_color="#A7A7A7",
         ),
     ),
     # 2nd Monitor
     Screen(
         top=bar.Bar(
             [
-                widget.Sep(linewidth=1, background=color[1], foreground=color[1], padding=10),
+                widget.Sep(linewidth=1, foreground=bar_color, padding=10),
                 widget.GroupBox(
                     highlight_method='line',
                     center_aligned=True,
                     borderwidth=2,
-                    background=color[1],
                     font="Operator Mono Lig Book Italic",
                     fontsize=18,
-                    highlight_color=color[1],
-                    inactive=color[3],
+                    highlight_color=bar_color,
+                    inactive=color[1],
                     padding=8,
-                    this_current_screen_border=color[0],
+                    this_current_screen_border=color[2],
                     other_current_screen_border=color[3],
-                    other_screen_border=color[3],
+                    other_screen_border=color[1],
                     this_screen_border=color[3]),
 
-                widget.Sep(linewidth=1, background=color[1], foreground=color[4], padding=20),
-                widget.CurrentLayout(background=color[1], foreground=color[0]),
-                widget.Sep(linewidth=1, background=color[1], foreground=color[4], padding=20),
-                widget.Sep(linewidth=1, background=color[1], foreground=color[1], padding=10),
+                widget.TextBox(font="sans", text="◤", fontsize=70, background=color[2], foreground=bar_color, padding=-1),
+                widget.CurrentLayout(background=color[2], foreground=color[0]),
+                widget.TextBox(font="sans", text="◢", fontsize=70, background=color[2], foreground=bar_color, padding=-1),
+
 
                 widget.TaskList(
                     highlight_method='block',
-                    background=color[1],
-                    margin=0,
+                    background=bar_color,
+                    margin=1,
                     padding_y=5,
                     padding_x=5,
-                    border=color[2],
-                    unfocused_border=color[2],
+                    border=bar_color,
+                    unfocused_border=bar_color,
                     icon_size=15),
 
-                widget.Sep(linewidth=1, background=color[1], foreground=color[4], padding=10),
-                widget.TextBox(font="sans", text="  ", fontsize=18, background=color[1]),
-                widget.Memory(background=color[1]),
-                widget.Sep(background=color[1], foreground=color[4], linewidth=1, padding=20),
-                widget.CPU(background=color[1], foreground=color[0], format='CPU: {load_percent}%'),
-                widget.Sep(background=color[1], foreground=color[4], linewidth=1, padding=20),
-                widget.TextBox(text="CPU Temp: ", background=color[1]),
-                widget.ThermalSensor(background=color[1], foreground=color[0], tag_sensor='Tctl'),
-                widget.Sep(background=color[1], foreground=color[4], linewidth=1, padding=20),
-                widget.Clock(format='%b %d %a %H:%M', background=color[1],),
-                widget.Sep(background=color[1], foreground=color[4], linewidth=0, padding=20),
+                widget.TextBox(font="sans", text="◢", fontsize=70, background=bar_color, foreground=color[10], padding=-1),
+                widget.TextBox(font="sans", text="  ", fontsize=18, background=color[10]),
+                widget.Memory(background=color[10], foreground=color[3]),
+                widget.Sep(background=color[10], foreground=color[5], linewidth=1, padding=20),
+                widget.CPU(background=color[10], foreground=color[8], format='CPU: {load_percent}%'),
+                widget.Sep(background=color[10], foreground=color[8], linewidth=1, padding=20),
+                widget.TextBox(text="CPU Temp: ", background=color[10], foreground=color[9]),
+                widget.ThermalSensor(background=color[10], foreground=color[9], tag_sensor='Tctl'),
+                widget.Sep(background=color[10], foreground=color[5], linewidth=1, padding=20),
+                widget.Clock(format='%b %d %a %H:%M', background=color[10], foreground=color[4]),
+                widget.Sep(background=color[10], foreground=color[8], linewidth=0, padding=20),
             ],
             35,
             opacity=.7,
             margin=[5, 16, 0, 16],
-            border_width=[2, 2, 2, 2],
-            border_color="#A7A7A7",
+            #border_width=[2, 2, 2, 2],
+            # border_color="#A7A7A7",
 
         ),
 

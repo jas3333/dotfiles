@@ -7,10 +7,9 @@ configuration {
 @theme "/dev/null"
 
 * {
-    background-color: #242424;
+    background-color: #132629;
     color: #e5dfc3;
-
-    font-color: #373737;
+    font-color: #274244;
     spacing: 20;
 }
 
@@ -42,7 +41,7 @@ box {
 }
 
 entry {
-    background-color: #373737;
+    background-color: #274244;
     border-radius: 5px;
     padding: 5 0 5 0;
     margin: 10 0 10 15;
