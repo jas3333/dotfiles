@@ -23,7 +23,6 @@ def autostart():
     subprocess.Popen([home + '/.config/qtile/autostart.sh'])
 
 
-
 # with open("/home/jas/.cache/wal/colors", "r") as file:
 #    color_list = file.read().splitlines()
 #
@@ -82,6 +81,7 @@ keys = [
     Key([], "XF86AudioNext", lazy.spawn("playerctl next")),
     Key([], "XF86AudioPrev", lazy.spawn("playerctl previous")),
     Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
+    Key([mod], "s", lazy.spawn("sound-change")),
 
     # Toggle Layouts
     Key([mod], "Tab", lazy.next_layout()),
@@ -204,7 +204,7 @@ screens = [
                     other_screen_border=color[1],
                     this_screen_border=color[3]),
 
-                widget.TextBox(font="serif", text="◤", fontsize=70, background=color[2], foreground=bar_color, padding=-1),
+                widget.TextBox(font="sans", text="◤", fontsize=70, background=color[2], foreground=bar_color, padding=-1),
                 widget.CurrentLayout(background=color[2], foreground=color[0]),
                 widget.TextBox(font="sans", text="◢", fontsize=70, background=color[2], foreground=bar_color, padding=-1),
 

@@ -81,6 +81,7 @@ keys = [
     Key([], "XF86AudioNext", lazy.spawn("playerctl next")),
     Key([], "XF86AudioPrev", lazy.spawn("playerctl previous")),
     Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
+    Key([mod], "s", lazy.spawn("sound-change")),
 
     # Toggle Layouts
     Key([mod], "Tab", lazy.next_layout()),
