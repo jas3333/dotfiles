@@ -4,5 +4,6 @@ cp ~/.config/qtile/configs/.Xresources.desk ~/.Xresources
 cp ~/.config/qtile/configs/autostart.desk ~/.config/qtile/autostart.sh
 cp ~/.config/qtile/configs/rofi.desk ~/.config/rofi/config.rasi
 xrdb -merge ~/.Xresources
-xrandr --output HDMI-A-0 --off --output DisplayPort-0 --rate 144.00 --mode 2560x1440 --primary --output DisplayPort-2 --mode 2560x1440 --rate 144.00 --right-of DisplayPort-0 
+#xrandr --output HDMI-A-0 --off --output DisplayPort-0 --rate 144.00 --mode 2560x1440 --primary --output DisplayPort-2 --mode 2560x1440 --rate 144.00 --right-of DisplayPort-0 
+xrandr --output DisplayPort-2 --rate 144.00 --mode 3440x1440 --output HDMI-A-0 --off
 qtile cmd-obj -o cmd -f restart
