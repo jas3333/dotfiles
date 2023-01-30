@@ -1,15 +1,15 @@
 {
-    "layer": "top", // Waybar at top layer
-    "position": "top", // Waybar position (top|bottom|left|right)
-    "height": 45, // Waybar height (to be removed for auto height)
-    "width": 3400, // Waybar width
-    "spacing": 10, // Gaps between modules (4px)
-    "margin-top": 10,
-    // Choose the order of the modules
-    "modules-left": ["wlr/workspaces"],
-    "modules-center": ["hyprland/window"],
-    "modules-right": ["pulseaudio", "network", "cpu", "memory", "temperature", "battery", "battery#bat2", "clock", "tray"],
-    // Modules configuration
+    "layer": "top", 
+    "position": "top", 
+    "width": 3300, 
+    "spacing": -4,
+    "margin-top": 15,
+    "height": 30,
+
+    "modules-left": ["wlr/workspaces", "custom/spaceleft", "custom/spaceleftmore", "custom/weather",  "custom/spaceend"],
+    "modules-center": ["custom/mediaPlayer"],
+    "modules-right": ["custom/spaceright","pulseaudio", "custom/spacer", "cpu","temperature", "custom/spacer" ,"memory","custom/spacer",  "clock","custom/spacer", "tray"],
+
      "wlr/workspaces": {
          "disable-scroll": false,
          "all-outputs": true,
@@ -17,7 +17,7 @@
          "on-scroll-down": "hyprctl dispatch workspace e-1",
          "on-click": "activate",
          "format": "{name}"
-     },
+    },
 
     "keyboard-state": {
         "numlock": true,
@@ -28,70 +28,75 @@
             "unlocked": ""
         }
     },
-    "sway/scratchpad": {
-        "format": "{icon}{count}",
-        "show-empty": false,
-        "format-icons": ["", ""],
-        "tooltip": true,
-        "tooltip-format": "{app}: {title}"
+
+    "hyprland/window": {
+        "max-length": 20,
+
     },
+
+
+    "custom/spacer": {
+        "format": " ",
+    },
+
+    "custom/spaceleft": {
+        "format": "{}      "
+    },
+    "custom/spaceleftmore": {
+        "format": "{}"
+    },
+
+    "custom/placeholder": {
+        "format": "{} Music here   "
+    },
+    "custom/spaceend": {
+        "format": "{}     "
+    },
+    "custom/spaceright": {
+        "format": "{}      "
+    },
+
     "idle_inhibitor": {
         "format": "{icon}",
+
         "format-icons": {
             "activated": "",
             "deactivated": ""
         }
     },
+
     "tray": {
-        // "icon-size": 21,
         "spacing": 10
     },
 
     "clock": {
-        // "timezone": "America/New_York",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "{:%Y-%m-%d}"
     },
+
     "cpu": {
-        "format": "{usage}%  ",
+        "interval": 1,
+        "format": "CPU: {load}%  ",
         "tooltip": false,
         "width": 30
     },
+
     "memory": {
-        "format": "{}% ",
+        "interval": 10,
+        "format": "{used}G/{total}G "
     },
+
+
     "temperature": {
-        // "thermal-zone": 2,
-        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
         "critical-threshold": 80,
-        // "format-critical": "{temperatureC}°C {icon}",
+        "hwmon-path": "/sys/class/hwmon/hwmon0/temp1_input",
+        "interval": 1,
         "format": "{temperatureC}°C {icon}",
         "format-icons": ["", "", ""]
     },
-    "backlight": {
-        // "device": "acpi_video1",
-        "format": "{percent}% {icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
-    },
-    "battery": {
-        "states": {
-            // "good": 95,
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
-    },
-    "battery#bat2": {
-        "bat": "BAT2"
-    },
+
+
     "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": "{essid} ({signalStrength}%) ",
         "format-ethernet": "{ipaddr}/{cidr} ",
         "tooltip-format": "{ifname} via {gwaddr} ",
@@ -99,8 +104,8 @@
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
+
     "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
         "format": "{volume}% {icon} {format_source}",
         "format-bluetooth": "{volume}% {icon} {format_source}",
         "format-bluetooth-muted": " {icon} {format_source}",
@@ -118,17 +123,22 @@
         },
         "on-click": "pavucontrol"
     },
-    "custom/media": {
-        "format": "{icon} {}",
+    "custom/mediaPlayer": {
+        "exec": "python ~/.config/waybar/scripts/mediaplayer.py --player ncspot",
+        "format": " {}",
         "return-type": "json",
-        "max-length": 40,
-        "format-icons": {
-            "spotify": "",
-            "default": "🎜"
-        },
-        "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
-    }
+        "on-click": "playerctl --player=ncspot play-pause",
+        "on-scroll-down": "playerctl --player=ncspot next",
+        "on-scroll-up": "playerctl --player=ncspot previous",
+        "tooltip": false
+  },
+
+  "custom/weather": {
+        "exec": "python ~/.config/waybar/scripts/weather.py",
+        "restart-interval": 300,
+        "return-type":"text",
+        "format": "{}",
+  }
+
 }
 
