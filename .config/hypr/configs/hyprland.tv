@@ -1,10 +1,14 @@
-monitor=DP-2,3440x1440@144,0x0, 1
-# monitor=DP-2,disabled
-# monitor=HDMI-A-1,3840x2160@60,0x0, 1.8
-monitor=HDMI-A-1,disabled
+# See https://wiki.hyprland.org/Configuring/Monitors/
+
+# monitor=DP-2,3440x1440@144,0x0, 1
+monitor=DP-2,disabled
+monitor=HDMI-A-1,3840x2160@60,0x0, 1.80
+# monitor=HDMI-A-1,disabled
 
 exec-once = waybar
 exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+# exec-once = swww init && /home/jas/.config/hypr/scripts/wall.sh 
+
 
 input {
     kb_layout = us
@@ -23,9 +27,9 @@ input {
 }
 
 general {
-    gaps_in = 15
-    gaps_out = 20
-    border_size = 0
+    gaps_in = 10
+    gaps_out = 15
+    border_size = 2
     # col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
     col.active_border = rgba(d5c9abee) rgba(a7c080ee) rgba(ed8080ee) rgba(7fbbb3ee) 45deg
     col.inactive_border = rgba(595959aa)
@@ -36,9 +40,9 @@ general {
 #  │        Decorations         │
 #  ╰────────────────────────────╯
 decoration {
-    rounding = 5
+    rounding = 3
     blur = yes
-    blur_size = 1
+    blur_size = 2
     blur_passes = 5
     blur_new_optimizations = on
 
@@ -48,15 +52,15 @@ decoration {
     col.shadow = 0xdb080c0b
     shadow_offset = 6.0 5.0
     shadow_scale = 0.995
-
-    dim_inactive = true
-    dim_strength = 0.2
 }
+
+
 #  ╭────────────────────────────╮
 #  │         Animations         │
 #  ╰────────────────────────────╯
 animations {
     enabled = yes
+
     bezier = myBezier, 0.05, 0.9, 0.1, 1.05
     bezier = easeIn, .09, 1, 0.57, 1.0 
     bezier = overShoot, 0.10, 0.30, 0.30, 1.10
@@ -69,20 +73,16 @@ animations {
 }
 
 misc {
-    vrr = 2
-    vfr = on 
-    no_direct_scanout = 1
-    enable_swallow = true
-    swallow_regex = vm-tool
+    no_vfr = 1
+    no_direct_scanout = 0
 }
-
 
 #  ╭────────────────────────────╮
 #  │          Layouts           │
 #  ╰────────────────────────────╯
 dwindle {
     preserve_split = true 
-    split_width_multiplier = 1.5 
+    split_width_multiplier = 1.2 
 }
 master {
     new_is_master = false
@@ -98,6 +98,7 @@ $mainMod = SUPER
 #  ╭────────────────────────────╮
 #  │        Window Rules        │
 #  ╰────────────────────────────╯
+
 blurls=notifications
 blurls=waybar
 
@@ -116,8 +117,7 @@ bind = SUPER, T, exec, kitty --title kitty_test
 bind = SUPER, F, exec, pcmanfm
 bind = SUPER, R, exec, killall rofi || rofi -combii -show drun
 bind = SUPER, C, exec, grim -g "$(slurp)"
-bind = SUPER, O, exec, librewolf 
-bind = SUPER, M, exec, ~/.local/bin/vm-tool
+# bind = SUPER, B, exec, librewolf 
 
 #  ╭────────────────────────────╮
 #  │       Waybar Toggle        │
@@ -181,17 +181,6 @@ bind = ALT, F, togglefloating, active
 binde = SUPER, Q, killactive
 bind = SUPER, V, togglefloating,
 bind = SUPER, P, exec, python /home/jas/.config/hypr/scripts/enable_adaptive_sync.py
-
-# Disable Keybinds
-bind = SUPER, U, submap, clean
-submap = clean
-
-# Enable Keybinds
-bind = SUPER, I, submap, reset
-submap = reset
-
-# Toggle mic
-bind = SUPER, G, exec, python /home/jas/.config/hypr/scripts/toggle_mic.py 
 
 #  ╭────────────────────────────╮
 #  │         Sleep Keys         │

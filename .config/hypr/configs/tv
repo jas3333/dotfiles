@@ -1,0 +1,12 @@
+#!/bin/bash
+
+swww kill
+killall waybar
+cp ~/.config/hypr/configs/config.tv ~/.config/hypr/hyprland.conf
+cp ~/.config/hypr/configs/waybar.tv ~/.config/waybar/config
+waybar
+swww init
+py ~/.config/hypr/scripts/wallpaper.py
+
+
+

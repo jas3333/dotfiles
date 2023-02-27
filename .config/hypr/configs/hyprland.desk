@@ -23,8 +23,8 @@ input {
 }
 
 general {
-    gaps_in = 15
-    gaps_out = 20
+    gaps_in = 10
+    gaps_out = 15
     border_size = 0
     # col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
     col.active_border = rgba(d5c9abee) rgba(a7c080ee) rgba(ed8080ee) rgba(7fbbb3ee) 45deg
@@ -50,7 +50,7 @@ decoration {
     shadow_scale = 0.995
 
     dim_inactive = true
-    dim_strength = 0.2
+    dim_strength = 0.3
 }
 #  ╭────────────────────────────╮
 #  │         Animations         │
@@ -82,7 +82,7 @@ misc {
 #  ╰────────────────────────────╯
 dwindle {
     preserve_split = true 
-    split_width_multiplier = 1.5 
+    split_width_multiplier = 1.2 
 }
 master {
     new_is_master = false
@@ -189,9 +189,6 @@ submap = clean
 # Enable Keybinds
 bind = SUPER, I, submap, reset
 submap = reset
-
-# Toggle mic
-bind = SUPER, G, exec, python /home/jas/.config/hypr/scripts/toggle_mic.py 
 
 #  ╭────────────────────────────╮
 #  │         Sleep Keys         │

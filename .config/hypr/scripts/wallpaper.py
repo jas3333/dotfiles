@@ -2,16 +2,13 @@
 import subprocess
 import random
 
-STEP = 30
+STEP = 120
 FPS = 60
 
-ANGLES = [45, 90, 180]
+ANGLES = [30, 45, 180]
 ANGLE = random.choice(ANGLES)
 
-if ANGLE == 90:
-    STEP = 5
-
-path = "/home/jas/wallpaper/CurrentSet/"
+path = "/home/jas/wallpaper/scenic2/"
 images = subprocess.run(["ls", path], stdout=subprocess.PIPE).stdout.decode("utf-8").split()
 image = path + random.choice(images)
 print(image)
