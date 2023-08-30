@@ -70,7 +70,7 @@ icon_id = str(data['weather'][0]['id'])
 current_icon = weather_icons[icon_id]
 weather_desc = data['weather'][0]['main']
 temp = int(data['main']['temp'])
-output = f"{current_icon} {weather_desc} {temp}F"
+output = f"{current_icon} {weather_desc} {temp}F°"
 
 print(output)
 

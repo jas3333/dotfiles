@@ -1,12 +1,13 @@
 * {
     font-family: Operator Mono Lig Book;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 16px;
 }
 
 window#waybar {
     border-radius: 10px;
-    background: linear-gradient(120deg, rgba(50, 60, 65, 0.7) 0%, rgba(134, 141, 128, 0.7) 100%);
+    /* background: linear-gradient(180deg, rgba(24, 33, 31, 0.7) 0%, rgba(49, 65, 61, 0.7) 100%); */
+    background: linear-gradient(180deg, rgba(50, 60, 65, 0.7) 0%, rgba(134, 141, 128, 0.7) 100%);
 }
 
 window#waybar.hidden {
@@ -14,11 +15,13 @@ window#waybar.hidden {
 }
 
 window#waybar.termite {
+    border-radius: 10px;
     background-color: #3f3f3f;
 }
 
 window#waybar.chromium {
     background-color: #000000;
+    border: none;
 }
 
 button {
@@ -36,7 +39,7 @@ button {
     box-shadow: 2px 2px 5px black;
     margin: 5px 5px;
     color: #fff;
-    transition: ease all 0.5s;
+    transition: ease all 0.6s;
 }
 
 #workspaces button:hover {
@@ -45,7 +48,6 @@ button {
 
 #workspaces button.active {
     background: #868d80;
-    box-shadow: none;
 }
 
 button:hover {
@@ -69,13 +71,9 @@ button:hover {
     background: #272e33;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
-    padding: 0 20px 0 20px;
+    padding: 0 20px;
 }
 
-#custom-battery {
-    background: #272e33;
-    color: #d5c9ab;
-}
 #custom-spaceleft {
     background: linear-gradient(135deg, #272e33 50%, #d5c9ab 51%);
     color: #d5c9ab;
@@ -86,26 +84,13 @@ button:hover {
 #custom-spaceend {
     background: linear-gradient(-45deg, rgba(41, 66, 71, 0) 50%, #d5c9ab 50%);
     margin-left: 4px;
-    color: #d5c9ab;
-}
 
-#custom-spacerend {
-    background: linear-gradient(135deg, #272e33 50%, rgba(0, 0, 0, 0) 51%);
+    color: #d5c9ab;
 }
 
 #custom-spaceright {
     background: linear-gradient(135deg, rgba(0, 0, 0, 0) 50%, #272e33 50%);
     color: #d5c9ab;
-}
-
-#custom-clock-left {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0) 50%, #272e33 50%);
-}
-
-#custom-clock-right {
-    background: #272e33;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
 }
 
 #custom-mediaPlayer {
@@ -191,13 +176,14 @@ button:hover {
 #idle_inhibitor,
 #scratchpad,
 #mpd {
-    padding: 0 15px;
+    padding: 0 20px;
+    color: #ffffff;
 }
 
-/* #window, */
-/* #workspaces { */
-/*     margin: 0 4px; */
-/* } */
+#window,
+#workspaces {
+    margin: 0 4px;
+}
 
 /* If workspaces is the leftmost module, omit left margin */
 .modules-left > widget:first-child > #workspaces {
@@ -211,8 +197,6 @@ button:hover {
 
 hyprland#window {
     background-color: #253135;
-    padding: 0;
-    margin: 0;
 }
 
 #battery {
@@ -308,12 +292,6 @@ label:focus {
     -gtk-icon-effect: highlight;
     background-color: #eb4d4b;
 }
-
-#custom-spacerEnd {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0) 50%, #272e33 50%);
-    color: #d5c9ab;
-}
-
 #custom-spacer {
     margin: 5px -2px;
     background: rgb(68, 83, 80);
