@@ -4,5 +4,5 @@
 
 ## Hyprland:
 
-![](./screenshots/hyprland_desktop1.png)
-![](./screenshots/hyprland_desktop2.png)
+![](./screenshots/hyprland_01.png)
+![](./screenshots/hyprland_02.png)
