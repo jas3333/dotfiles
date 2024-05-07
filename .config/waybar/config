@@ -2,13 +2,13 @@
     {
         "layer": "top",
         "position": "top",
-        "width": 3350,
+        "width": 3040,
         "spacing": -4,
         "output": "DP-2",
-        "margin-top": 15,
+        "margin-top": 0,
 
         "modules-left": [
-            "wlr/workspaces",
+            "hyprland/workspaces",
             "custom/spaceleft",
             "custom/spaceleftmore",
             "custom/weather",
@@ -17,6 +17,7 @@
         "modules-center": ["custom/mediaPlayer"],
         "modules-right": [
             "custom/spaceright",
+            "custom/spacer",
             "pulseaudio",
             "custom/spacer",
             "cpu",
@@ -29,7 +30,7 @@
             "tray"
         ],
 
-        "wlr/workspaces": {
+        "hyprland/workspaces": {
             "disable-scroll": false,
             "all-outputs": false,
             "on-scroll-up": "hyprctl dispatch workspace e+1",
@@ -87,7 +88,7 @@
         },
 
         "clock": {
-            "format": "{: %b %d - %H:%M}",
+            "format": "{:%b %d - %H:%M}",
             "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
             "format-alt": "{:%Y-%m-%d}"
         },
@@ -171,13 +172,13 @@
         "layer": "top",
         "output": "DP-1",
         "width": 2300,
-        "margin-top": 15,
+        "margin-top": 0,
 
-        "modules-left": ["wlr/workspaces", "custom/spacerend"],
+        "modules-left": ["hyprland/workspaces", "custom/spacerend"],
         "modules-center": ["custom/mediaPlayer"],
         "modules-right": [ "custom/clock-left", "custom/battery", "clock", "custom/clock-right"],
 
-        "wlr/workspaces": {
+        "hyprland/workspaces": {
             "disable-scroll": false,
             "all-outputs": false,
             "on-scroll-up": "hyprctl dispatch workspace e+1",
@@ -202,7 +203,7 @@
         },
 
         "clock": {
-            "format": "{: %b %d - %H:%M}",
+            "format": "{:%b %d - %H:%M}",
             "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
             "format-alt": "{:%Y-%m-%d}"
         },

@@ -5,8 +5,10 @@
 }
 
 window#waybar {
-    border-radius: 10px;
-    background: linear-gradient(120deg, rgba(50, 60, 65, 0.7) 0%, rgba(134, 141, 128, 0.7) 100%);
+    /* background: linear-gradient(120deg, rgba(50, 60, 65, 0.7) 0%, rgba(134, 141, 128, 0.7) 100%); */
+    background: #23262e;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
 }
 
 window#waybar.hidden {
@@ -34,7 +36,7 @@ button {
     font-style: italic;
     border-radius: 5px;
     box-shadow: 2px 2px 5px black;
-    margin: 5px 5px;
+    margin: 4px 4px;
     color: #fff;
     transition: ease all 0.5s;
 }
@@ -66,18 +68,18 @@ button:hover {
 /* #18211f */
 
 #workspaces {
-    background: #272e33;
+    background: #23262e;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     padding: 0 20px 0 20px;
 }
 
 #custom-battery {
-    background: #272e33;
+    background: #23262e;
     color: #d5c9ab;
 }
 #custom-spaceleft {
-    background: linear-gradient(135deg, #272e33 50%, #d5c9ab 51%);
+    background: linear-gradient(135deg, #23262e 50%, #d5c9ab 51%);
     color: #d5c9ab;
 }
 #custom-spaceleftmore {
@@ -89,21 +91,22 @@ button:hover {
     color: #d5c9ab;
 }
 
+/* background: #23262e; */
 #custom-spacerend {
-    background: linear-gradient(135deg, #272e33 50%, rgba(0, 0, 0, 0) 51%);
+    background: linear-gradient(135deg, #23262e 50%, rgba(0, 0, 0, 0) 51%);
 }
 
 #custom-spaceright {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0) 50%, #272e33 50%);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0) 50%, #23262e 50%);
     color: #d5c9ab;
 }
 
 #custom-clock-left {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0) 50%, #272e33 50%);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0) 50%, #23262e 50%);
 }
 
 #custom-clock-right {
-    background: #272e33;
+    background: #23262e;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 }
@@ -249,7 +252,7 @@ label:focus {
 }
 #pulseaudio {
     color: #87b4ba;
-    background: #272e33;
+    background: #23262e;
 }
 #network {
     color: #b79fbe;
@@ -258,11 +261,11 @@ label:focus {
 
 #cpu {
     color: #517c58;
-    background: #272e33;
+    background: #23262e;
 }
 #custom-temperature {
     color: #517c58;
-    background: #272e33;
+    background: #23262e;
 }
 
 #custom-weather {
@@ -273,7 +276,7 @@ label:focus {
 }
 
 #memory {
-    background: #272e33;
+    background: #23262e;
     color: #5e8cae;
 }
 
@@ -282,11 +285,11 @@ label:focus {
     color: #2a5c45;
 }
 #clock {
-    background: #272e33;
+    background: #23262e;
     color: #ed8080;
 }
 #tray {
-    background: #272e33;
+    background: #23262e;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 }
@@ -315,7 +318,7 @@ label:focus {
 }
 
 #custom-spacer {
-    margin: 5px -2px;
+    margin: 4px -2px;
     background: rgb(68, 83, 80);
     background: linear-gradient(
         180deg,
@@ -330,6 +333,6 @@ label:focus {
         rgba(0, 0, 0, 1) 100%
     );
     background-size: 350% 350%;
-    animation: gradient 5s ease-in-out infinite;
+    animation: gradient 2s ease infinite;
     transition: all 0.1s cubic-bezier(0.55, 0.68, 0.48, 1.682);
 }
